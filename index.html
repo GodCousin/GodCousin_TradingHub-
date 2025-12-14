@@ -1,70 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>godCousin Trading Hub</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      flex-direction: column;
-    }
-    #loginButton {
-      padding: 10px 20px;
-      background: #ff4f00;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 20px;
-    }
-    #dashboard {
-      display: none;
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <h1>godCousin Trading Hub</h1>
-  <button id="loginButton">Login with Deriv</button>
+<h1>godCousin Trading Hub</h1>
+<button id="loginButton">Login with Deriv</button>
 
-  <div id="dashboard">
-    <h2>Welcome to your Dashboard!</h2>
-    <p id="userInfo"></p>
-  </div>
+<div id="dashboard">
+    <div class="card" id="accountInfo">
+        <h2>Account Info</h2>
+        <p id="balance">Loading balance...</p>
+    </div>
+</div>
 
-  <script src="https://app.deriv.com/websockets/v3?app_id=112117"></script>
-  <script>
-    const derivAppId = "112117"; // Your Deriv App ID
-
-    function login() {
-      Deriv.Auth.authorize({ app_id: derivAppId }, (err, response) => {
-        if (err) {
-          console.error("Login failed", err);
-          alert("Login failed. Check console for errors.");
-          return;
-        }
-
-        console.log("Logged in successfully!", response);
-        // Hide login button
-        document.getElementById("loginButton").style.display = "none";
-        // Show dashboard
-        document.getElementById("dashboard").style.display = "block";
-        // Display user info (token)
-        document.getElementById("userInfo").innerText = `Token: ${response.authorize?.token || 'N/A'}`;
-      });
-    }
-
-    document.getElementById("loginButton").addEventListener("click", login);
-  </script>
-
+<script src="app.js"></script>
 </body>
 </html>
