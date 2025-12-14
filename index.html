@@ -1,71 +1,31 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>godCousin Trading Hub – Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #0f2027, #000);
-      font-family: Arial, sans-serif;
-      color: #fff;
-    }
-    .card {
-      background: rgba(255,255,255,0.06);
-      padding: 30px;
-      border-radius: 14px;
-      width: 320px;
-      box-shadow: 0 0 30px rgba(0,255,255,0.2);
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 10px;
-      font-size: 22px;
-    }
-    p {
-      font-size: 13px;
-      opacity: 0.8;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(90deg,#00f2ff,#00ff9d);
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
+<script>
+  function login() {
+    const appId = 112117;
+    const redirectUri = "https://god-cousin-trading-hub.vercel.app";
 
-  <div class="card">
-    <h1>godCousin Trading Hub</h1>
-    <p>Deriv Login</p>
-    <button onclick="login()">Login with Deriv</button>
-  </div>
+    const authUrl =
+      "https://oauth.deriv.com/oauth2/authorize" +
+      "?app_id=" + appId +
+      "&redirect_uri=" + encodeURIComponent(redirectUri);
 
-  <script>
-    function login() {
-      const appId = 112117;
-      const redirectUri = "https://god-cousin-trading-hub.vercel.app";
+    window.location.href = authUrl;
+  }
 
-      const authUrl =
-        "https://oauth.deriv.com/oauth2/authorize" +
-        "?app_id=" + appId +
-        "&redirect_uri=" + encodeURIComponent(redirectUri);
+  // Capture token after redirect
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
 
-      window.location.href = authUrl;
+    if (token) {
+      // Save token
+      localStorage.setItem("deriv_token", token);
+
+      // Clean URL (remove token from address bar)
+      window.history.replaceState({}, document.title, "/");
+
+      // Redirect to dashboard
+      window.location.href = "dashboard.html";
     }
-  </script>
-
-</body>
-</html>
+  })();
+</script>
