@@ -53,18 +53,34 @@
   </div>
 
   <script>
-    function login() {
-      const appId = 112117;
-      const redirectUri = "https://god-cousin-trading-hub.vercel.app";
+  function login() {
+    const appId = 112117;
+    const redirectUri = "https://god-cousin-trading-hub.vercel.app";
 
-      const authUrl =
-        "https://oauth.deriv.com/oauth2/authorize" +
-        "?app_id=" + appId +
-        "&redirect_uri=" + encodeURIComponent(redirectUri);
+    const authUrl =
+      "https://oauth.deriv.com/oauth2/authorize" +
+      "?app_id=" + appId +
+      "&redirect_uri=" + encodeURIComponent(redirectUri);
 
-      window.location.href = authUrl;
+    window.location.href = authUrl;
+  }
+
+  // Run AFTER page loads
+  window.addEventListener("load", function () {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("deriv_token", token);
+
+      // Clean URL safely
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname
+      );
+
+      window.location.href = "dashboard.html";
     }
+  });
   </script>
-
-</body>
-</html>
