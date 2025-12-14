@@ -1,7 +1,7 @@
-// app.js - Updated for GitHub Pages deployment
+// app.js - Vercel deployment version
 
 const derivAppId = "112117";
-const redirectUri = "https://YOUR_USERNAME.github.io/godcousin-trading-hub"; 
+const redirectUri = "https://godcousin.vercel.app"; 
 let authToken = null;
 let ws = null;
 
