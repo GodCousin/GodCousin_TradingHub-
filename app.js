@@ -1,1 +1,20 @@
-// app.js
+// app.js 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>godCousin Trading Hub Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-container">
+    <h1>godCousin Trading Hub</h1>
+    <button id="loginButton">Login with Deriv</button>
+</div>
+<script src="app.js"></script>
+<script>
+    document.getElementById("loginButton").addEventListener("click", login);
+</script>
+</body>
+</html>
