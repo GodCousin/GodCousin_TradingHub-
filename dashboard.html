@@ -410,10 +410,10 @@
     // Security check
     const token = localStorage.getItem("deriv_token");
     if (!token) {
-      window.location.href = "index.html";
-    }
-
-    function logout() {
+  window.location.replace("index.html");
+    } 
+    
+   function logout() {
       localStorage.removeItem("deriv_token");
       window.location.href = "index.html";
     }
