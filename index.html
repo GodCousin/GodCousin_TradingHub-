@@ -1,4 +1,3 @@
-
 <script>
   function login() {
     const appId = 112117;
@@ -12,20 +11,22 @@
     window.location.href = authUrl;
   }
 
-  // Capture token after redirect
-  (function () {
+  // Run AFTER page loads
+  window.addEventListener("load", function () {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
     if (token) {
-      // Save token
       localStorage.setItem("deriv_token", token);
 
-      // Clean URL (remove token from address bar)
-      window.history.replaceState({}, document.title, "/");
+      // Clean URL safely
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname
+      );
 
-      // Redirect to dashboard
       window.location.href = "dashboard.html";
     }
-  })();
+  });
 </script>
