@@ -1,1 +1,30 @@
-<!-- dashboard.html with App ID 112117 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard – godCousin Trading Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <h2>Welcome to godCousin Trading Hub</h2>
+  <p>You are logged in.</p>
+
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const token = localStorage.getItem("deriv_token");
+
+    if (!token) {
+      // Block access if not logged in
+      window.location.href = "index.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("deriv_token");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
