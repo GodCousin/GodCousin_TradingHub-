@@ -1,7 +1,0 @@
-{
-  "routes": [
-    { "src": "/(.*).(css|js|png|jpg|svg)", "dest": "/$1.$2" },
-    { "src": "/dashboard", "dest": "/dashboard.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
-}
