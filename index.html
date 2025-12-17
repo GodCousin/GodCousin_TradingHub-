@@ -2,22 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>godCousinTradingHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOTH | Citadel Diana</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@900&display=swap" rel="stylesheet">
+  <style>
+    /* Additional inline styles if needed, but most are in styles.css */
+    .lunar-emblem {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background: radial-gradient(circle, #e0f8ff 15%, transparent 60%);
+      border: 2px solid cyan;
+      border-radius: 50%;
+      box-shadow: 0 0 40px cyan;
+      animation: lunarGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes lunarGlow {
+      from { box-shadow: 0 0 40px cyan; }
+      to { box-shadow: 0 0 80px #00ffff, 0 0 120px #00ffff; }
+    }
+  </style>
 </head>
 <body>
 
+  <div class="grid-bg"></div>
+  <div class="particles"></div>
+
   <div class="glass-card">
-    <div class="logo">
-  <div class="logo goth-logo">Goth</div>
+    <div class="lunar-emblem"></div>
+    
+    <div class="goth-logo">GOTH</div>
+    
     <p class="tagline">Your personal Deriv trading hub</p>
 
     <button class="neon-btn" onclick="loginDeriv()">
       CONNECT TO DERIV
     </button>
   </div>
-
-  <div class="grid-bg"></div>
 
   <script src="app.js"></script>
 </body>
