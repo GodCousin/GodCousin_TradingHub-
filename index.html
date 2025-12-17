@@ -3,62 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Citadel Launchpad</title>
+  <title>GOTH | Launchpad</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@900&display=swap" rel="stylesheet">
   <style>
-    /* Futuristic Neon Rocket Emblem */
+    /* Neon Rocket Emblem - Matching Your Reference Style */
     .rocket-emblem {
-      width: 120px;
+      width: 160px;
       height: 160px;
       margin: 0 auto 30px;
-      position: relative;
-      animation: rocketPulse 6s ease-in-out infinite alternate;
+      animation: gothGlow 6s ease-in-out infinite alternate; /* Sync with logo */
     }
 
-    .rocket-body {
-      width: 40px;
-      height: 100px;
-      background: linear-gradient(to top, #00ffff, #a0ffff);
-      clip-path: polygon(50% 0%, 100% 80%, 80% 100%, 20% 100%, 0% 80%);
-      margin: 0 auto;
-      position: relative;
-      box-shadow: 0 0 30px cyan;
-    }
-
-    .rocket-fin-left, .rocket-fin-right {
-      width: 20px;
-      height: 40px;
-      background: #00ffff;
-      position: absolute;
-      bottom: 0;
-      clip-path: polygon(0 0, 100% 50%, 0 100%);
-      box-shadow: 0 0 20px cyan;
-    }
-
-    .rocket-fin-left { left: -10px; transform: rotate(20deg); }
-    .rocket-fin-right { right: -10px; transform: rotate(-20deg); }
-
-    .rocket-exhaust {
-      width: 50px;
-      height: 60px;
-      background: radial-gradient(circle at top, #00ffff 10%, transparent 70%);
-      position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0.8;
-      animation: exhaustFlicker 0.3s infinite alternate;
-    }
-
-    @keyframes rocketPulse {
-      from { transform: translateY(0) scale(1); box-shadow: 0 0 40px cyan; }
-      to { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 80px #00ffff, 0 0 120px #00ffff; }
-    }
-
-    @keyframes exhaustFlicker {
-      from { opacity: 0.6; }
-      to { opacity: 1; }
+    .rocket-emblem svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 20px cyan) drop-shadow(0 0 40px #00ffff);
     }
   </style>
 </head>
@@ -69,11 +29,23 @@
 
   <div class="glass-card">
     <div class="rocket-emblem">
-      <div class="rocket-body">
-        <div class="rocket-fin-left"></div>
-        <div class="rocket-fin-right"></div>
-      </div>
-      <div class="rocket-exhaust"></div>
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer Circle Ring -->
+        <circle cx="100" cy="100" r="90" fill="none" stroke="cyan" stroke-width="6"/>
+        <circle cx="100" cy="100" r="85" fill="none" stroke="#00ffff" stroke-width="4" opacity="0.8"/>
+        
+        <!-- Rocket Body -->
+        <path d="M100 20 L130 80 L100 100 L70 80 Z" fill="none" stroke="#e0f8ff" stroke-width="8"/>
+        <circle cx="100" cy="45" r="12" fill="none" stroke="#00ffff" stroke-width="6"/>
+        
+        <!-- Wings/Fins -->
+        <path d="M70 80 L50 110 L70 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
+        <path d="M130 80 L150 110 L130 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
+        
+        <!-- Exhaust Flame -->
+        <path d="M90 110 Q100 140 110 110" fill="none" stroke="#00ffff" stroke-width="10" opacity="0.9"/>
+        <path d="M85 120 Q100 160 115 120" fill="none" stroke="cyan" stroke-width="8" opacity="0.7"/>
+      </svg>
     </div>
     
     <div class="goth-logo">GOTH</div>
