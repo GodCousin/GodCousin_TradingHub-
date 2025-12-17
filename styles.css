@@ -183,6 +183,3 @@ body {
   color: #00ffff;
   text-shadow: 0 0 20px cyan;
 }
-
-/* Import Orbitron Font for Futuristic Feel */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
