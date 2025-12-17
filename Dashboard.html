@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Launch Control</title>
+  <title>GOTH | Dashboard</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@900&display=swap" rel="stylesheet">
   <style>
-    /* Reuse the same rocket emblem from index.html */
+    /* Rocket Emblem - Clean and simple at the top */
     .rocket-emblem {
       width: 160px;
       height: 160px;
-      margin: 0 auto 40px;
+      margin: 0 auto 50px;
       animation: gothGlow 6s ease-in-out infinite alternate;
     }
 
@@ -28,7 +28,7 @@
   <div class="particles"></div>
 
   <div class="glass-card dashboard">
-    <!-- Rocket Emblem at the top -->
+    <!-- Rocket Emblem -->
     <div class="rocket-emblem">
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <circle cx="100" cy="100" r="90" fill="none" stroke="cyan" stroke-width="6"/>
@@ -45,15 +45,15 @@
       </svg>
     </div>
 
-    <!-- Account Balance Panel -->
+    <!-- Account Balance -->
     <div class="stat-box">
       <span>ACCOUNT BALANCE</span>
       <h3 id="balance">--</h3>
     </div>
 
-    <!-- Disconnect Button -->
+    <!-- Simple Logout Button -->
     <button class="neon-btn danger" onclick="logout()">
-      DISCONNECT FROM CITADEL
+      LOGOUT
     </button>
   </div>
 
