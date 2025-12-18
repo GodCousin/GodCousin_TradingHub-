@@ -5,7 +5,7 @@
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #0a001f 0%, #000000 70%);
+  background: radial-gradient(circle at center, #0a001f 0%, #000000 90%);
   overflow: hidden;
   font-family: 'Orbitron', 'Arial Narrow', sans-serif;
   color: #e0f8ff;
@@ -14,172 +14,222 @@ body {
   align-items: center;
 }
 
-/* GRID BACKGROUND - Hexagonal Lunar Grid */
+/* GRID BACKGROUND - Enhanced Perspective Grid */
 .grid-bg {
   position: fixed;
   inset: 0;
   background-image: 
     linear-gradient(cyan 1px, transparent 1px),
     linear-gradient(90deg, cyan 1px, transparent 1px);
-  background-size: 50px 50px;
-  opacity: 0.05;
-  animation: gridPulse 20s linear infinite;
-  mask-image: radial-gradient(circle at center, black 50%, transparent 80%);
+  background-size: 60px 60px;
+  opacity: 0.08;
+  animation: gridPulse 18s linear infinite, gridFlicker 4s infinite alternate;
+  transform: perspective(800px) rotateX(60deg);
+  transform-origin: bottom;
   z-index: 0;
 }
 
 @keyframes gridPulse {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
+  0% { transform: perspective(800px) rotateX(60deg) translateY(0); }
+  100% { transform: perspective(800px) rotateX(60deg) translateY(60px); }
 }
 
-/* PARTICLES - Floating Lunar Dust */
+@keyframes gridFlicker {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.12; }
+}
+
+/* PARTICLES - Dynamic Floating Dust */
 .particles {
   position: fixed;
   inset: 0;
   pointer-events: none;
   background-image: radial-gradient(circle, cyan 1px, transparent 1px);
-  background-size: 50px 50px;
-  opacity: 0.3;
-  animation: floatParticles 15s linear infinite;
+  background-size: 60px 60px;
+  opacity: 0.35;
+  animation: floatParticles 20s linear infinite, particleGlow 5s ease-in-out infinite alternate;
   z-index: 1;
 }
 
 @keyframes floatParticles {
   0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
+  100% { background-position: 120px 120px; }
 }
 
-/* GLASS CARD - Holo Throne */
+@keyframes particleGlow {
+  from { opacity: 0.3; }
+  to { opacity: 0.45; }
+}
+
+/* GLASS CARD - Advanced Holographic Morphism */
 .glass-card {
   position: relative;
   z-index: 2;
-  background: rgba(10, 20, 40, 0.4);
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(0, 255, 255, 0.6);
-  border-radius: 20px;
-  padding: 50px 45px;
-  width: 380px;
+  background: rgba(10, 20, 40, 0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  border-radius: 24px;
+  padding: 60px 50px;
+  width: 400px;
   text-align: center;
   box-shadow: 
-    0 0 60px rgba(0, 255, 255, 0.8),
-    inset 0 0 40px rgba(0, 255, 255, 0.2);
+    0 0 80px rgba(0, 255, 255, 0.6),
+    inset 0 0 60px rgba(0, 255, 255, 0.15);
   overflow: hidden;
+  transition: all 0.4s;
 }
 
-/* Scanline Effect */
+.glass-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 
+    0 0 100px rgba(0, 255, 255, 0.8),
+    inset 0 0 80px rgba(0, 255, 255, 0.2);
+}
+
+/* Liquid Shine Overlay */
 .glass-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%);
+  background: linear-gradient(135deg, transparent 30%, rgba(0, 255, 255, 0.15) 50%, transparent 70%);
+  animation: liquidShine 10s linear infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@keyframes liquidShine {
+  0% { transform: translate(-100%, -100%) rotate(0deg); }
+  100% { transform: translate(100%, 100%) rotate(360deg); }
+}
+
+/* Scanline Glitch Effect */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.03) 2px, rgba(0, 255, 255, 0.03) 4px);
   animation: scanline 8s linear infinite;
+  pointer-events: none;
 }
 
-@keyframes scanline {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* GOTH LOGO - Synchronized Lunar Glow */
+/* GOTH LOGO - Enhanced Neon Gradient */
 .goth-logo {
-  font-size: 3.2rem;
-  font-weight: 700;
-  letter-spacing: 4px;
+  font-size: 3.6rem;
+  font-weight: 800;
+  letter-spacing: 6px;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #00ffff, #e0f8ff, #00ffff);
+  background: linear-gradient(90deg, #00ffff, #7fffd4, #00ffff, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px cyan;
-  margin-bottom: 12px;
-  animation: gothGlow 6s ease-in-out infinite alternate;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6),
+    0 0 60px rgba(0, 255, 255, 0.4);
+  margin-bottom: 16px;
+  animation: gothGlow 5s ease-in-out infinite alternate;
 }
 
 @keyframes gothGlow {
   from {
     text-shadow: 
-      0 0 10px rgba(0, 255, 255, 0.6),
-      0 0 20px rgba(0, 255, 255, 0.4),
-      0 0 40px rgba(0, 255, 255, 0.2);
+      0 0 10px rgba(0, 255, 255, 0.7),
+      0 0 30px rgba(0, 255, 255, 0.5),
+      0 0 60px rgba(0, 255, 255, 0.3);
   }
   to {
     text-shadow: 
       0 0 20px rgba(0, 255, 255, 1),
-      0 0 40px rgba(0, 255, 255, 0.8),
-      0 0 80px rgba(0, 255, 255, 0.5);
+      0 0 50px rgba(0, 255, 255, 0.8),
+      0 0 100px rgba(0, 255, 255, 0.6);
   }
 }
 
 /* TAGLINE */
 .tagline {
-  font-size: 1.1rem;
-  opacity: 0.8;
-  margin-bottom: 40px;
-  letter-spacing: 1px;
+  font-size: 1.2rem;
+  opacity: 0.85;
+  margin-bottom: 50px;
+  letter-spacing: 2px;
 }
 
-/* NEON BUTTON - Synchronized Pulse */
+/* NEON BUTTON - Neon Morphism Style */
 .neon-btn {
   width: 100%;
-  padding: 16px;
-  font-size: 1.2rem;
+  padding: 18px;
+  font-size: 1.4rem;
   font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   border-radius: 50px;
-  background: linear-gradient(45deg, #00ffff, #00b7b7);
-  border: none;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid rgba(0, 255, 255, 0.6);
   cursor: pointer;
-  color: #000;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
-  transition: all 0.3s;
-  animation: gothGlow 6s ease-in-out infinite alternate; /* Synchronized with logo */
+  color: #00ffff;
+  box-shadow: 
+    0 0 40px rgba(0, 255, 255, 0.6),
+    inset 0 0 20px rgba(0, 255, 255, 0.2);
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
 }
 
 .neon-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 50px rgba(0, 255, 255, 1);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 0 60px rgba(0, 255, 255, 0.9),
+    inset 0 0 40px rgba(0, 255, 255, 0.3);
+  color: #000;
+  background: rgba(0, 255, 255, 0.2);
 }
 
+/* Danger Button - Cyberpunk Pink/Purple */
 .neon-btn.danger {
-  background: linear-gradient(45deg, #ff3399, #ff0066);
-  box-shadow: 0 0 30px rgba(255, 0, 102, 0.7);
-  animation: dangerPulse 6s ease-in-out infinite alternate;
+  background: rgba(255, 0, 102, 0.1);
+  border-color: rgba(255, 0, 102, 0.6);
+  color: #ff3399;
+  box-shadow: 
+    0 0 40px rgba(255, 0, 102, 0.6),
+    inset 0 0 20px rgba(255, 0, 102, 0.2);
 }
 
-@keyframes dangerPulse {
-  from { box-shadow: 0 0 20px rgba(255, 0, 102, 0.6); }
-  to { box-shadow: 0 0 50px rgba(255, 0, 102, 1); }
+.neon-btn.danger:hover {
+  box-shadow: 
+    0 0 60px rgba(255, 0, 102, 0.9),
+    inset 0 0 40px rgba(255, 0, 102, 0.3);
+  background: rgba(255, 0, 102, 0.2);
 }
 
-/* DASHBOARD ELEMENTS - Synchronized Glow */
+/* DASHBOARD ELEMENTS */
 .dashboard h2 {
-  margin-bottom: 40px;
-  font-size: 2.2rem;
-  background: linear-gradient(90deg, #00ffff, #e0f8ff);
+  margin-bottom: 50px;
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gothGlow 6s ease-in-out infinite alternate;
+  animation: gothGlow 5s ease-in-out infinite alternate;
 }
 
 .stat-box {
-  background: rgba(0, 20, 40, 0.6);
-  border: 1px solid cyan;
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 40px;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
-  animation: gothGlow 6s ease-in-out infinite alternate;
+  background: rgba(10, 20, 40, 0.7);
+  border: 2px solid rgba(0, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 50px;
+  box-shadow: 
+    0 0 50px rgba(0, 255, 255, 0.5),
+    inset 0 0 30px rgba(0, 255, 255, 0.2);
+  animation: gothGlow 5s ease-in-out infinite alternate;
 }
 
 .stat-box span {
-  font-size: 1.1rem;
-  opacity: 0.8;
-  letter-spacing: 2px;
+  font-size: 1.3rem;
+  opacity: 0.9;
+  letter-spacing: 3px;
 }
 
 .stat-box h3 {
-  margin-top: 12px;
-  font-size: 3rem;
+  margin-top: 15px;
+  font-size: 3.5rem;
   color: #00ffff;
-  text-shadow: 0 0 20px cyan;
+  text-shadow: 0 0 40px cyan;
 }
