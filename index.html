@@ -3,60 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Launchpad</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@900&display=swap" rel="stylesheet">
+  <title>GOTH | Your Ultimate Deriv Trading Partner</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Keep your existing styles or update below -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Neon Rocket Emblem - Matching Your Reference Style */
-    .rocket-emblem {
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 30px;
-      animation: gothGlow 6s ease-in-out infinite alternate; /* Sync with logo */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      text-align: center;
     }
 
-    .rocket-emblem svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 0 20px cyan) drop-shadow(0 0 40px #00ffff);
+    header {
+      padding: 20px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #64748b;
+      margin: 40px 0;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .feature {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .feature h3 {
+      font-size: 1.5rem;
+      margin: 20px 0 10px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin: 80px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #64748b;
+    }
+
+    .cta-button {
+      background: #22c55e;
+      color: white;
+      padding: 18px 40px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(34,197,94,0.3);
+      transition: 0.3s;
+      margin: 60px 0;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(34,197,94,0.4);
+    }
+
+    footer {
+      padding: 40px;
+      background: #1e293b;
+      color: white;
+      margin-top: 100px;
     }
   </style>
 </head>
 <body>
 
-  <div class="grid-bg"></div>
-  <div class="particles"></div>
+  <header>
+    <div class="logo">GOTH</div>
+    <p>Your Ultimate Partner in Deriv Trading Success</p>
+  </header>
 
-  <div class="glass-card">
-    <div class="rocket-emblem">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer Circle Ring -->
-        <circle cx="100" cy="100" r="90" fill="none" stroke="cyan" stroke-width="6"/>
-        <circle cx="100" cy="100" r="85" fill="none" stroke="#00ffff" stroke-width="4" opacity="0.8"/>
-        
-        <!-- Rocket Body -->
-        <path d="M100 20 L130 80 L100 100 L70 80 Z" fill="none" stroke="#e0f8ff" stroke-width="8"/>
-        <circle cx="100" cy="45" r="12" fill="none" stroke="#00ffff" stroke-width="6"/>
-        
-        <!-- Wings/Fins -->
-        <path d="M70 80 L50 110 L70 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M130 80 L150 110 L130 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
-        
-        <!-- Exhaust Flame -->
-        <path d="M90 110 Q100 140 110 110" fill="none" stroke="#00ffff" stroke-width="10" opacity="0.9"/>
-        <path d="M85 120 Q100 160 115 120" fill="none" stroke="cyan" stroke-width="8" opacity="0.7"/>
-      </svg>
+  <main>
+    <h1 class="tagline">Elevate Your Trading with Powerful Tools & Community</h1>
+
+    <div class="features">
+      <div class="feature">
+        <h3>🤖 Free Automated Bots</h3>
+        <p>Ready-to-use trading bots for Deriv synthetic indices. No coding required.</p>
+      </div>
+      <div class="feature">
+        <h3>📊 Advanced Analysis Tools</h3>
+        <p>Real-time charts, indicators, and signals for better decisions.</p>
+      </div>
+      <div class="feature">
+        <h3>👥 Copy Trading</h3>
+        <p>Follow and copy successful traders automatically.</p>
+      </div>
+      <div class="feature">
+        <h3>📡 Live Signals</h3>
+        <p>High-accuracy entry signals for Volatility indices.</p>
+      </div>
+      <div class="feature">
+        <h3>🎓 Mentorship & Community</h3>
+        <p>Learn proven strategies from experienced traders.</p>
+      </div>
+      <div class="feature">
+        <h3>🏆 Proven Results</h3>
+        <p>Thousands of traders achieving consistent profits.</p>
+      </div>
     </div>
-    
-    <div class="goth-logo">GOTH</div>
-    
-    <p class="tagline">Your personal Deriv trading hub</p>
 
-    <button class="neon-btn" onclick="loginDeriv()">
-      CONNECT TO DERIV
+    <div class="stats">
+      <div>
+        <div class="stat">3M+</div>
+        <div class="stat-label">Active Traders</div>
+      </div>
+      <div>
+        <div class="stat">$50M+</div>
+        <div class="stat-label">Total Profits</div>
+      </div>
+      <div>
+        <div class="stat">95%</div>
+        <div class="stat-label">Success Rate</div>
+      </div>
+    </div>
+
+    <button class="cta-button" onclick="loginDeriv()">
+      CONNECT TO DERIV & START NOW
     </button>
-  </div>
+
+    <h2>Why Choose GOTH?</h2>
+    <ul style="max-width:800px; margin:40px auto; text-align:left; line-height:2;">
+      <li>No hidden fees — completely free tools</li>
+      <li>24/7 real-time support & mentorship</li>
+      <li>Practice with virtual accounts first</li>
+      <li>Fast & secure Deriv integration</li>
+      <li>Daily signals and strategy updates</li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 GOTH - Your Personal Deriv Trading Hub</p>
+    <p>Join thousands of successful traders today</p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
-</html>
+  </html>
