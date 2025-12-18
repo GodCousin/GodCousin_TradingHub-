@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Bot Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GOTH | Trading Dashboard</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       background: #f9fafb;
       font-family: 'Poppins', sans-serif;
       margin: 0;
+      padding-bottom: 100px;
     }
+
     .top-bar {
       background: #1e293b;
       color: white;
@@ -20,12 +24,14 @@
       align-items: center;
       font-weight: bold;
     }
+
     .balance {
       background: #3b82f6;
       padding: 10px 20px;
       border-radius: 8px;
       font-size: 1.1rem;
     }
+
     .tabs {
       background: #1e293b;
       display: flex;
@@ -33,29 +39,25 @@
       padding: 10px 20px;
       white-space: nowrap;
     }
+
     .tab {
       padding: 10px 20px;
       margin-right: 10px;
       background: #334155;
       border-radius: 8px;
       cursor: pointer;
+      color: white;
     }
+
     .tab.active {
       background: #3b82f6;
     }
+
     .main-content {
       padding: 40px 20px;
       text-align: center;
     }
-    .main-content h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-    .main-content p {
-      color: #64748b;
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
+
     .bot-options {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -63,6 +65,7 @@
       max-width: 1000px;
       margin: 0 auto 40px;
     }
+
     .bot-option {
       background: white;
       padding: 30px;
@@ -71,9 +74,11 @@
       cursor: pointer;
       transition: 0.3s;
     }
+
     .bot-option:hover {
       transform: translateY(-10px);
     }
+
     .bot-option img {
       width: 80px;
       height: 80px;
@@ -81,10 +86,7 @@
       background: #0ea5e9;
       padding: 15px;
     }
-    .bot-option p {
-      margin-top: 20px;
-      font-weight: 600;
-    }
+
     .risk-disclaimer {
       background: #fef3c7;
       color: #92400e;
@@ -92,12 +94,9 @@
       border-radius: 8px;
       margin: 40px auto;
       max-width: 800px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
       font-weight: bold;
     }
+
     .run-bar {
       position: fixed;
       bottom: 0;
@@ -107,9 +106,10 @@
       padding: 20px;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
+
     .run-btn {
       background: #10b981;
       color: white;
@@ -118,76 +118,78 @@
       border-radius: 8px;
       font-size: 1.2rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .run-btn img {
-      width: 30px;
-      height: 30px;
-    }
-    .bot-status {
-      color: #64748b;
-      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
 
   <div class="top-bar">
-    <div>Menu</div>
+    <div>GOTH</div>
     <div class="balance">USD <span id="balance">--</span></div>
   </div>
 
   <div class="tabs">
     <div class="tab">Manual Trader</div>
-    <div class="tab">Analyststool</div>
+    <div class="tab">Analysts Tool</div>
     <div class="tab">LDP Tool</div>
     <div class="tab">Charts</div>
     <div class="tab">Copy Trading</div>
     <div class="tab active">Signals</div>
-    <div class="tab">Trading View</div>
+    <div class="tab">TradingView</div>
     <div class="tab">Speedbot</div>
     <div class="tab">Bot Editor</div>
-    <div class="tab">Trading Software</div>
     <div class="tab">Dashboard</div>
   </div>
 
   <div class="main-content">
     <h1>Load or build your bot</h1>
-    <p>Import a bot from your computer or Google Drive, build it from scratch, or start with a quick strategy.</p>
+    <p>Import a bot, build one from scratch, or start with a quick strategy.</p>
 
     <div class="bot-options">
-      <div class="bot-option">
-        <img src="https://cdn-icons-png.flaticon.com/512/3588/3588373.png" alt="Upload Bot">
-        <p>Upload Bot</p>
-      </div>
-      <div class="bot-option">
-        <img src="https://cdn-icons-png.flaticon.com/512/1087/1087087.png" alt="Trading Bots">
-        <p>Trading Bots</p>
-      </div>
-      <div class="bot-option">
-        <img src="https://cdn-icons-png.flaticon.com/512/1087/1087087.png" alt="Bot Editor">
-        <p>Bot Editor</p>
-      </div>
-      <div class="bot-option">
-        <img src="https://cdn-icons-png.flaticon.com/512/3588/3588373.png" alt="Quick Strategy">
-        <p>Quick Strategy</p>
-      </div>
+      <div class="bot-option"><p>Upload Bot</p></div>
+      <div class="bot-option"><p>Trading Bots</p></div>
+      <div class="bot-option"><p>Bot Editor</p></div>
+      <div class="bot-option"><p>Quick Strategy</p></div>
     </div>
 
-    <div class="risk-disclaimer">
-      <span>⚠️</span> Risk Disclaimer
-    </div>
+    <div class="risk-disclaimer">⚠️ Trading involves risk</div>
   </div>
 
   <div class="run-bar">
-    <button class="run-btn">
-      <span>▶</span> Run
-    </button>
-    <p class="bot-status">Bot is not running</p>
+    <button class="run-btn">▶ Run</button>
+    <p>Bot is not running</p>
   </div>
 
-  <script src="app.js"></script>
+  <script>
+    const APP_ID = 112117;
+    const token = localStorage.getItem("deriv_token");
+
+    if (!token) {
+      window.location.href = "/";
+    }
+
+    const ws = new WebSocket(`wss://ws.deriv.com/websockets/v3?app_id=${APP_ID}`);
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        authorize: token
+      }));
+    };
+
+    ws.onmessage = (msg) => {
+      const data = JSON.parse(msg.data);
+
+      if (data.msg_type === "authorize") {
+        ws.send(JSON.stringify({ balance: 1, subscribe: 1 }));
+      }
+
+      if (data.msg_type === "balance") {
+        document.getElementById("balance").textContent =
+          data.balance.balance.toFixed(2);
+      }
+    };
+  </script>
+
 </body>
-          </html>
+    </html>
