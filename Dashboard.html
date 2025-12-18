@@ -3,139 +3,191 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+  <title>GOTH | Bot Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: radial-gradient(circle at center, #0a001f 0%, #000000 70%);
-      color: #e0f8ff;
-      font-family: 'Rajdhani', sans-serif;
-      min-height: 100vh;
-      overflow: hidden;
+      background: #f9fafb;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
     }
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      background-image: linear-gradient(cyan 1px, transparent 1px), linear-gradient(90deg, cyan 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.05;
-      animation: gridPulse 20s linear infinite;
-    }
-    @keyframes gridPulse {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: radial-gradient(circle, cyan 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.3;
-      animation: floatParticles 15s linear infinite;
-    }
-    @keyframes floatParticles {
-      0% { background-position: 0 0; }
-      100% { background-position: 100px 100px; }
-    }
-    .dashboard-container {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 40px;
-    }
-    .rocket-emblem {
-      width: 180px;
-      height: 180px;
-      margin-bottom: 60px;
-      animation: emblemGlow 6s ease-in-out infinite alternate;
-    }
-    .rocket-emblem svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 0 40px cyan);
-    }
-    @keyframes emblemGlow {
-      from { filter: drop-shadow(0 0 30px cyan); }
-      to { filter: drop-shadow(0 0 80px #00ffff); }
-    }
-    .balance-panel {
-      background: rgba(10, 20, 40, 0.5);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 255, 255, 0.6);
-      border-radius: 20px;
-      padding: 40px 60px;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(0, 255, 255, 0.3);
-      max-width: 400px;
-      width: 100%;
-    }
-    .balance-label {
-      font-size: 1.4rem;
-      opacity: 0.8;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    #balance {
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: #00ffff;
-      text-shadow: 0 0 30px cyan;
-      margin: 20px 0;
-    }
-    .logout-btn {
-      margin-top: 60px;
-      padding: 16px 50px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: linear-gradient(45deg, #ff0066, #cc0044);
+    .top-bar {
+      background: #1e293b;
       color: white;
-      border: none;
-      border-radius: 50px;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    .balance {
+      background: #3b82f6;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+    }
+    .tabs {
+      background: #1e293b;
+      display: flex;
+      overflow-x: auto;
+      padding: 10px 20px;
+      white-space: nowrap;
+    }
+    .tab {
+      padding: 10px 20px;
+      margin-right: 10px;
+      background: #334155;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 0 40px rgba(255, 0, 102, 0.6);
+    }
+    .tab.active {
+      background: #3b82f6;
+    }
+    .main-content {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .main-content h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .main-content p {
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .bot-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+    }
+    .bot-option {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
       transition: 0.3s;
     }
-    .logout-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 60px rgba(255, 0, 102, 0.8);
+    .bot-option:hover {
+      transform: translateY(-10px);
+    }
+    .bot-option img {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      background: #0ea5e9;
+      padding: 15px;
+    }
+    .bot-option p {
+      margin-top: 20px;
+      font-weight: 600;
+    }
+    .risk-disclaimer {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 40px auto;
+      max-width: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: bold;
+    }
+    .run-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .run-btn {
+      background: #10b981;
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .run-btn img {
+      width: 30px;
+      height: 30px;
+    }
+    .bot-status {
+      color: #64748b;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <div class="grid-bg"></div>
-  <div class="particles"></div>
+  <div class="top-bar">
+    <div>Menu</div>
+    <div class="balance">USD <span id="balance">--</span></div>
+  </div>
 
-  <div class="dashboard-container">
-    <div class="rocket-emblem">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="100" cy="100" r="90" fill="none" stroke="cyan" stroke-width="6"/>
-        <circle cx="100" cy="100" r="85" fill="none" stroke="#00ffff" stroke-width="4" opacity="0.8"/>
-        <path d="M100 20 L130 80 L100 100 L70 80 Z" fill="none" stroke="#e0f8ff" stroke-width="8"/>
-        <circle cx="100" cy="45" r="12" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M70 80 L50 110 L70 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M130 80 L150 110 L130 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M90 110 Q100 140 110 110" fill="none" stroke="#00ffff" stroke-width="10" opacity="0.9"/>
-        <path d="M85 120 Q100 160 115 120" fill="none" stroke="cyan" stroke-width="8" opacity="0.7"/>
-      </svg>
+  <div class="tabs">
+    <div class="tab">Manual Trader</div>
+    <div class="tab">Analyststool</div>
+    <div class="tab">LDP Tool</div>
+    <div class="tab">Charts</div>
+    <div class="tab">Copy Trading</div>
+    <div class="tab active">Signals</div>
+    <div class="tab">Trading View</div>
+    <div class="tab">Speedbot</div>
+    <div class="tab">Bot Editor</div>
+    <div class="tab">Trading Software</div>
+    <div class="tab">Dashboard</div>
+  </div>
+
+  <div class="main-content">
+    <h1>Load or build your bot</h1>
+    <p>Import a bot from your computer or Google Drive, build it from scratch, or start with a quick strategy.</p>
+
+    <div class="bot-options">
+      <div class="bot-option">
+        <img src="https://cdn-icons-png.flaticon.com/512/3588/3588373.png" alt="Upload Bot">
+        <p>Upload Bot</p>
+      </div>
+      <div class="bot-option">
+        <img src="https://cdn-icons-png.flaticon.com/512/1087/1087087.png" alt="Trading Bots">
+        <p>Trading Bots</p>
+      </div>
+      <div class="bot-option">
+        <img src="https://cdn-icons-png.flaticon.com/512/1087/1087087.png" alt="Bot Editor">
+        <p>Bot Editor</p>
+      </div>
+      <div class="bot-option">
+        <img src="https://cdn-icons-png.flaticon.com/512/3588/3588373.png" alt="Quick Strategy">
+        <p>Quick Strategy</p>
+      </div>
     </div>
 
-    <div class="balance-panel">
-      <div class="balance-label">ACCOUNT BALANCE</div>
-      <h3 id="balance">--</h3>
+    <div class="risk-disclaimer">
+      <span>⚠️</span> Risk Disclaimer
     </div>
+  </div>
 
-    <button class="logout-btn" onclick="logout()">
-      LOGOUT
+  <div class="run-bar">
+    <button class="run-btn">
+      <span>▶</span> Run
     </button>
+    <p class="bot-status">Bot is not running</p>
   </div>
 
   <script src="app.js"></script>
 </body>
-</html>
+          </html>
