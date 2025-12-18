@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Personal Deriv Trading Hub</title>
+  <title>GOTH | Deriv Trading Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -12,7 +12,11 @@
       color: #e0f8ff;
       font-family: 'Rajdhani', sans-serif;
       min-height: 100vh;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     .grid-bg {
       position: fixed;
@@ -39,28 +43,24 @@
       0% { background-position: 0 0; }
       100% { background-position: 100px 100px; }
     }
-    header {
-      text-align: center;
-      padding: 60px 20px;
-    }
     .rocket-emblem {
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 40px;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 40px;
       animation: emblemGlow 6s ease-in-out infinite alternate;
     }
     .rocket-emblem svg {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 0 30px cyan);
+      filter: drop-shadow(0 0 40px cyan);
     }
     @keyframes emblemGlow {
-      from { filter: drop-shadow(0 0 20px cyan); }
-      to { filter: drop-shadow(0 0 60px #00ffff); }
+      from { filter: drop-shadow(0 0 30px cyan); }
+      to { filter: drop-shadow(0 0 80px #00ffff); }
     }
     .logo {
       font-family: 'Orbitron', sans-serif;
-      font-size: 4rem;
+      font-size: 4.5rem;
       font-weight: 700;
       background: linear-gradient(90deg, #00ffff, #e0f8ff);
       -webkit-background-clip: text;
@@ -73,60 +73,24 @@
     }
     .description {
       max-width: 700px;
-      margin: 0 auto 60px;
+      margin-bottom: 60px;
       opacity: 0.9;
-      font-size: 1.1rem;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      max-width: 1200px;
-      margin: 80px auto;
-      padding: 0 20px;
-    }
-    .feature {
-      background: rgba(10, 20, 40, 0.5);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 255, 255, 0.4);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
-      transition: 0.3s;
-    }
-    .feature:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 60px rgba(0, 255, 255, 0.4);
-    }
-    .feature h3 {
-      font-size: 1.6rem;
-      margin: 20px 0;
-      color: #00ffff;
     }
     .cta-button {
-      display: block;
-      margin: 80px auto;
       padding: 20px 60px;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 700;
       background: linear-gradient(45deg, #00ffff, #00b7b7);
       color: #000;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+      box-shadow: 0 0 60px rgba(0, 255, 255, 0.8);
       transition: 0.3s;
     }
     .cta-button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 60px rgba(0, 255, 255, 0.8);
-    }
-    footer {
-      text-align: center;
-      padding: 60px 20px;
-      opacity: 0.7;
-      font-size: 0.9rem;
+      box-shadow: 0 0 80px rgba(0, 255, 255, 1);
     }
   </style>
 </head>
@@ -135,60 +99,27 @@
   <div class="grid-bg"></div>
   <div class="particles"></div>
 
-  <header>
-    <div class="rocket-emblem">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="100" cy="100" r="90" fill="none" stroke="cyan" stroke-width="6"/>
-        <circle cx="100" cy="100" r="85" fill="none" stroke="#00ffff" stroke-width="4" opacity="0.8"/>
-        <path d="M100 20 L130 80 L100 100 L70 80 Z" fill="none" stroke="#e0f8ff" stroke-width="8"/>
-        <circle cx="100" cy="45" r="12" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M70 80 L50 110 L70 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M130 80 L150 110 L130 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
-        <path d="M90 110 Q100 140 110 110" fill="none" stroke="#00ffff" stroke-width="10" opacity="0.9"/>
-        <path d="M85 120 Q100 160 115 120" fill="none" stroke="cyan" stroke-width="8" opacity="0.7"/>
-      </svg>
-    </div>
-    <div class="logo">GOTH</div>
-    <h1 class="tagline">Your Personal Deriv Trading Hub</h1>
-    <p class="description">A secure, custom third-party platform built on Deriv's official API. Connect your account and access real-time tools — with more features in development.</p>
-  </header>
+  <div class="rocket-emblem">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="cyan" stroke-width="6"/>
+      <circle cx="100" cy="100" r="85" fill="none" stroke="#00ffff" stroke-width="4" opacity="0.8"/>
+      <path d="M100 20 L130 80 L100 100 L70 80 Z" fill="none" stroke="#e0f8ff" stroke-width="8"/>
+      <circle cx="100" cy="45" r="12" fill="none" stroke="#00ffff" stroke-width="6"/>
+      <path d="M70 80 L50 110 L70 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
+      <path d="M130 80 L150 110 L130 110 Z" fill="none" stroke="#00ffff" stroke-width="6"/>
+      <path d="M90 110 Q100 140 110 110" fill="none" stroke="#00ffff" stroke-width="10" opacity="0.9"/>
+      <path d="M85 120 Q100 160 115 120" fill="none" stroke="cyan" stroke-width="8" opacity="0.7"/>
+    </svg>
+  </div>
 
-  <section class="features">
-    <div class="feature">
-      <h3>Secure Deriv Connection</h3>
-      <p>Official OAuth login — safe, no password sharing, full access to your account.</p>
-    </div>
-    <div class="feature">
-      <h3>Real-Time Balance</h3>
-      <p>View your Deriv account balance live after connecting.</p>
-    </div>
-    <div class="feature">
-      <h3>Free Forever</h3>
-      <p>No fees, no subscriptions — open and customizable.</p>
-    </div>
-    <div class="feature">
-      <h3>Tools in Development</h3>
-      <p>Live charts, trade tracking, and more coming based on feedback.</p>
-    </div>
-    <div class="feature">
-      <h3>Practice Mode Ready</h3>
-      <p>Use Deriv demo accounts for risk-free testing.</p>
-    </div>
-    <div class="feature">
-      <h3>Privacy First</h3>
-      <p>Only authorized API scopes — your data stays protected.</p>
-    </div>
-  </section>
+  <div class="logo">GOTH</div>
+  <h1 class="tagline">Your Personal Deriv Trading Hub</h1>
+  <p class="description">Secure connection, real-time balance, and powerful tools — all built on Deriv's official API.</p>
 
   <button class="cta-button" onclick="loginDeriv()">
     CONNECT TO DERIV
   </button>
 
-  <footer>
-    <p>GOTH is an independent third-party tool using Deriv's public API.</p>
-    <p>Trading involves risk. Always practice responsibly.</p>
-  </footer>
-
   <script src="app.js"></script>
 </body>
-</html>
+                         </html>
