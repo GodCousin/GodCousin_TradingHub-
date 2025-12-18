@@ -1,105 +1,21 @@
-// ====================== CONFIG ======================
-const APP_ID = "112117";  // Your app_id
-let ws = null;
-let chart = null;
-let currentProposalId = null;
+// ... (keep previous config, login, token, websocket, logout from before) ...
 
-// ====================== LOGIN & TOKEN ======================
-function loginDeriv() {
-  const authUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}&l=en`;
-  window.location.href = authUrl;
-}
+// Add to onmessage for balance and ticks (keep existing)
 
-function extractToken() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("token1");
-}
+// ====================== INDICATORS & CHART ======================
+let showSMA = false;
+let showRSI = false;
+let prices = [];  // Store historical prices for indicators
 
-const tokenFromUrl = extractToken();
-if (tokenFromUrl) {
-  localStorage.setItem("deriv_token", tokenFromUrl);
-  window.history.replaceState({}, document.title, "/");
-  if (!window.location.pathname.toLowerCase().includes("dashboard")) {
-    window.location.href = "Dashboard.html";
+function toggleIndicator(type) {
+  if (type === 'sma') {
+    showSMA = !showSMA;
+    document.getElementById('smaToggle').classList.toggle('active');
+  } else if (type === 'rsi') {
+    showRSI = !showRSI;
+    document.getElementById('rsiToggle').classList.toggle('active');
   }
-}
-
-// ====================== DASHBOARD LOGIC ======================
-if (window.location.pathname.toLowerCase().includes("dashboard")) {
-  const token = localStorage.getItem("deriv_token");
-
-  if (!token) {
-    alert("Please connect to Deriv first.");
-    window.location.href = "index.html";
-  } else {
-    connectWebSocket(token);
-  }
-}
-
-// ====================== WEBSOCKET CONNECTION ======================
-function connectWebSocket(token) {
-  ws = new WebSocket(`wss://ws.derivws.com/websockets/v3?app_id=${APP_ID}`);
-
-  ws.onopen = () => {
-    console.log("WebSocket connected");
-    ws.send(JSON.stringify({ authorize: token }));
-  };
-
-  ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-
-    if (data.msg_type === "authorize") {
-      console.log("Authorized!");
-      ws.send(JSON.stringify({ balance: 1 }));
-      subscribeToTicks();
-    }
-
-    if (data.msg_type === "balance") {
-      const el = document.getElementById("balance");
-      if (el) {
-        el.innerText = `${data.balance.balance.toFixed(2)} ${data.balance.currency}`;
-      }
-    }
-
-    if (data.msg_type === "tick") {
-      updateChart(data.tick.quote);
-    }
-
-    if (data.msg_type === "proposal") {
-      currentProposalId = data.proposal.id;
-    }
-
-    if (data.msg_type === "buy") {
-      if (data.buy) {
-        alert(`Trade placed! Contract ID: ${data.buy.contract_id}\nPayout: ${data.buy.payout.toFixed(2)} USD`);
-      } else if (data.error) {
-        alert("Trade failed: " + data.error.message);
-      }
-    }
-
-    if (data.error) {
-      console.error("API Error:", data.error);
-      if (data.error.code === "InvalidToken") {
-        alert("Session expired. Please reconnect.");
-        logout();
-      } else {
-        alert("Error: " + data.error.message);
-      }
-    }
-  };
-
-  ws.onerror = (err) => console.error("WebSocket error:", err);
-  ws.onclose = () => console.log("WebSocket closed");
-}
-
-// ====================== LIVE TICKS & CHART ======================
-function subscribeToTicks() {
-  ws.send(JSON.stringify({
-    ticks: "R_100",  // Volatility 100 Index
-    subscribe: 1
-  }));
-
-  initChart();
+  updateChart(prices[prices.length - 1] || 0);  // Redraw chart
 }
 
 function initChart() {
@@ -108,16 +24,35 @@ function initChart() {
     type: "line",
     data: {
       labels: [],
-      datasets: [{
-        label: "Volatility 100 Index",
-        data: [],
-        borderColor: "#00ffff",
-        backgroundColor: "rgba(0, 255, 255, 0.1)",
-        borderWidth: 3,
-        pointRadius: 0,
-        tension: 0.4,
-        fill: true
-      }]
+      datasets: [
+        {
+          label: "Price",
+          data: [],
+          borderColor: "#00ffff",
+          backgroundColor: "rgba(0, 255, 255, 0.1)",
+          borderWidth: 3,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: "SMA (20)",
+          data: [],
+          borderColor: "#ffcc00",
+          borderWidth: 2,
+          pointRadius: 0,
+          hidden: !showSMA
+        },
+        {
+          label: "RSI (14)",
+          data: [],
+          borderColor: "#ff00ff",
+          borderWidth: 2,
+          pointRadius: 0,
+          hidden: !showRSI,
+          yAxisID: 'rsi'  // Separate scale for RSI
+        }
+      ]
     },
     options: {
       responsive: true,
@@ -127,11 +62,17 @@ function initChart() {
         y: {
           grid: { color: "rgba(0, 255, 255, 0.1)" },
           ticks: { color: "#e0f8ff" }
+        },
+        rsi: {
+          type: 'linear',
+          position: 'right',
+          min: 0,
+          max: 100,
+          grid: { display: false },
+          ticks: { color: "#ff00ff" }
         }
       },
-      plugins: {
-        legend: { display: false }
-      },
+      plugins: { legend: { display: true, labels: { color: "#e0f8ff" } } },
       animation: { duration: 0 }
     }
   });
@@ -140,92 +81,60 @@ function initChart() {
 function updateChart(price) {
   if (!chart) return;
 
-  const now = new Date().toLocaleTimeString();
-  chart.data.labels.push(now);
-  chart.data.datasets[0].data.push(price);
+  prices.push(price);
+  if (prices.length > 50) prices.shift();  // Keep last 50
 
-  // Keep only last 50 points
-  if (chart.data.labels.length > 50) {
-    chart.data.labels.shift();
-    chart.data.datasets[0].data.shift();
+  const labels = Array.from({length: prices.length}, (_, i) => i);
+  
+  chart.data.labels = labels;
+  chart.data.datasets[0].data = prices;
+  
+  // SMA (20-period)
+  if (showSMA) {
+    chart.data.datasets[1].data = calculateSMA(prices, 20);
+    chart.data.datasets[1].hidden = false;
+  } else {
+    chart.data.datasets[1].hidden = true;
+  }
+  
+  // RSI (14-period)
+  if (showRSI) {
+    chart.data.datasets[2].data = calculateRSI(prices, 14);
+    chart.data.datasets[2].hidden = false;
+  } else {
+    chart.data.datasets[2].hidden = true;
   }
 
   chart.update();
 }
 
-// ====================== BUY CONTRACT (Rise/Fall) ======================
-function buyContract(direction) {
-  const stake = parseFloat(document.getElementById("stake").value);
-
-  if (!stake || stake < 0.35) {
-    alert("Minimum stake is 0.35 USD");
-    return;
-  }
-
-  // Get proposal first
-  ws.send(JSON.stringify({
-    proposal: 1,
-    amount: stake,
-    basis: "stake",
-    contract_type: direction === "CALL" ? "CALL" : "PUT",
-    currency: "USD",
-    duration: 5,
-    duration_unit: "m",
-    symbol: "R_100"
-  }));
+function calculateSMA(prices, period) {
+  return prices.map((_, i) => {
+    if (i < period - 1) return null;
+    const slice = prices.slice(i - period + 1, i + 1);
+    return slice.reduce((a, b) => a + b, 0) / period;
+  });
 }
 
-// Override onmessage to handle proposal then buy
-// We'll use a global to store proposal
-// But simpler: wait for proposal response, then buy
-// In this version, we set currentProposalId and buy immediately after proposal
-
-// Modify the onmessage to auto-buy after proposal
-// But for safety, let's add a small delay or use the response
-
-// Better: separate proposal and buy steps
-let pendingBuy = null;
-
-ws && (ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-
-  // ... previous handlers ...
-
-  if (data.msg_type === "proposal" && pendingBuy) {
-    ws.send(JSON.stringify({
-      buy: data.proposal.id,
-      price: data.proposal.ask_price
-    }));
-    pendingBuy = null;
+function calculateRSI(prices, period) {
+  let rsi = [];
+  for (let i = 0; i < prices.length; i++) {
+    if (i < period) {
+      rsi.push(null);
+      continue;
+    }
+    let gains = 0, losses = 0;
+    for (let j = i - period + 1; j <= i; j++) {
+      const change = prices[j] - prices[j - 1];
+      if (change > 0) gains += change;
+      else losses -= change;
+    }
+    const avgGain = gains / period;
+    const avgLoss = losses / period;
+    const rs = avgGain / avgLoss;
+    rsi.push(100 - (100 / (1 + rs)));
   }
-});
-
-// Update buyContract function
-function buyContract(direction) {
-  const stake = parseFloat(document.getElementById("stake").value);
-
-  if (!stake || stake < 0.35) {
-    alert("Minimum stake is 0.35 USD");
-    return;
-  }
-
-  pendingBuy = { direction, stake };
-
-  ws.send(JSON.stringify({
-    proposal: 1,
-    amount: stake,
-    basis: "stake",
-    contract_type: direction === "CALL" ? "CALL" : "PUT",
-    currency: "USD",
-    duration: 5,
-    duration_unit: "m",
-    symbol: "R_100"
-  }));
+  return rsi;
 }
 
-// ====================== LOGOUT ======================
-function logout() {
-  localStorage.removeItem("deriv_token");
-  if (ws) ws.close();
-  window.location.href = "index.html";
-          }
+// ... (keep subscribeToTicks, buyContract, etc. from before) ...
