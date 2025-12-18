@@ -3,99 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOTH | Your Ultimate Deriv Trading Partner</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Keep your existing styles or update below -->
+  <title>GOTH | Personal Deriv Trading Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
       background: #f8fafc;
-      color: #1e293b;
+      color: #334155;
+      line-height: 1.6;
       text-align: center;
     }
-
     header {
-      padding: 20px;
+      padding: 60px 20px;
       background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .logo {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #22c55e;
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      color: #64748b;
-      margin: 40px 0;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-
-    .feature {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
-
-    .feature h3 {
-      font-size: 1.5rem;
-      margin: 20px 0 10px;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      margin: 80px 0;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      font-size: 2.5rem;
+    .logo {
+      font-size: 3.5rem;
       font-weight: 700;
-      color: #22c55e;
+      color: #16a34a;
+      margin-bottom: 20px;
     }
-
-    .stat-label {
-      font-size: 1rem;
+    .tagline {
+      font-size: 1.8rem;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+    .description {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      font-size: 1.1rem;
       color: #64748b;
     }
-
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    .feature {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .feature h3 {
+      font-size: 1.6rem;
+      margin: 20px 0 15px;
+      color: #16a34a;
+    }
     .cta-button {
-      background: #22c55e;
+      background: #16a34a;
       color: white;
-      padding: 18px 40px;
-      font-size: 1.4rem;
+      padding: 20px 50px;
+      font-size: 1.6rem;
       font-weight: 600;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(34,197,94,0.3);
+      box-shadow: 0 10px 40px rgba(22,163,74,0.3);
       transition: 0.3s;
       margin: 60px 0;
     }
-
     .cta-button:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(34,197,94,0.4);
+      box-shadow: 0 20px 50px rgba(22,163,74,0.4);
     }
-
     footer {
       padding: 40px;
       background: #1e293b;
-      color: white;
+      color: #94a3b8;
+      font-size: 0.9rem;
       margin-top: 100px;
     }
   </style>
@@ -104,73 +85,46 @@
 
   <header>
     <div class="logo">GOTH</div>
-    <p>Your Ultimate Partner in Deriv Trading Success</p>
+    <h1 class="tagline">Your Personal Deriv Trading Hub</h1>
+    <p class="description">A clean, custom third-party platform built on Deriv's official API. Connect your account securely and access your balance, with more tools coming soon.</p>
   </header>
 
-  <main>
-    <h1 class="tagline">Elevate Your Trading with Powerful Tools & Community</h1>
-
-    <div class="features">
-      <div class="feature">
-        <h3>🤖 Free Automated Bots</h3>
-        <p>Ready-to-use trading bots for Deriv synthetic indices. No coding required.</p>
-      </div>
-      <div class="feature">
-        <h3>📊 Advanced Analysis Tools</h3>
-        <p>Real-time charts, indicators, and signals for better decisions.</p>
-      </div>
-      <div class="feature">
-        <h3>👥 Copy Trading</h3>
-        <p>Follow and copy successful traders automatically.</p>
-      </div>
-      <div class="feature">
-        <h3>📡 Live Signals</h3>
-        <p>High-accuracy entry signals for Volatility indices.</p>
-      </div>
-      <div class="feature">
-        <h3>🎓 Mentorship & Community</h3>
-        <p>Learn proven strategies from experienced traders.</p>
-      </div>
-      <div class="feature">
-        <h3>🏆 Proven Results</h3>
-        <p>Thousands of traders achieving consistent profits.</p>
-      </div>
+  <section class="features">
+    <div class="feature">
+      <h3>Secure Deriv Connection</h3>
+      <p>Login via official OAuth — no passwords shared, full API access to your real or demo account.</p>
     </div>
-
-    <div class="stats">
-      <div>
-        <div class="stat">3M+</div>
-        <div class="stat-label">Active Traders</div>
-      </div>
-      <div>
-        <div class="stat">$50M+</div>
-        <div class="stat-label">Total Profits</div>
-      </div>
-      <div>
-        <div class="stat">95%</div>
-        <div class="stat-label">Success Rate</div>
-      </div>
+    <div class="feature">
+      <h3>Real-Time Balance View</h3>
+      <p>See your account balance update live after connecting.</p>
     </div>
+    <div class="feature">
+      <h3>Free & Open Source</h3>
+      <p>No fees, no subscriptions — completely free to use and customize.</p>
+    </div>
+    <div class="feature">
+      <h3>Future Tools in Development</h3>
+      <p>Live charts, trade history, and more features planned based on user feedback.</p>
+    </div>
+    <div class="feature">
+      <h3>Practice Safe</h3>
+      <p>Test everything risk-free with Deriv's demo accounts (start with virtual funds).</p>
+    </div>
+    <div class="feature">
+      <h3>Privacy Focused</h3>
+      <p>Your data stays secure — we only use Deriv's authorized API scopes.</p>
+    </div>
+  </section>
 
-    <button class="cta-button" onclick="loginDeriv()">
-      CONNECT TO DERIV & START NOW
-    </button>
-
-    <h2>Why Choose GOTH?</h2>
-    <ul style="max-width:800px; margin:40px auto; text-align:left; line-height:2;">
-      <li>No hidden fees — completely free tools</li>
-      <li>24/7 real-time support & mentorship</li>
-      <li>Practice with virtual accounts first</li>
-      <li>Fast & secure Deriv integration</li>
-      <li>Daily signals and strategy updates</li>
-    </ul>
-  </main>
+  <button class="cta-button" onclick="loginDeriv()">
+    CONNECT TO DERIV
+  </button>
 
   <footer>
-    <p>&copy; 2025 GOTH - Your Personal Deriv Trading Hub</p>
-    <p>Join thousands of successful traders today</p>
+    <p>GOTH is an independent third-party tool using Deriv's public API.</p>
+    <p>Trading involves risk. Use demo accounts to practice.</p>
   </footer>
 
   <script src="app.js"></script>
 </body>
-  </html>
+</html>
