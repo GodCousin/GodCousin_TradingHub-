@@ -95,33 +95,13 @@
       Secure connection, real-time balance, and powerful tools — built on Deriv’s official API.
     </p>
 
-    <button class="cta-button" onclick="loginDeriv()">
+    <button class="cta-button" onclick="connectToDeriv()">
       CONNECT TO DERIV
     </button>
   </div>
 
-  <script>
-    const APP_ID = 112117;
-    const REDIRECT_URL = "https://god-cousin-trading-hub.vercel.app";
-
-    function loginDeriv() {
-      const oauthUrl =
-        `https://oauth.deriv.com/oauth2/authorize` +
-        `?app_id=${APP_ID}` +
-        `&redirect_uri=${encodeURIComponent(REDIRECT_URL)}`;
-
-      window.location.href = oauthUrl;
-    }
-
-    // Handle redirect back from Deriv
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
-
-    if (token) {
-      localStorage.setItem("deriv_token", token);
-      window.location.href = "dashboard.html";
-    }
-  </script>
+  <!-- ONLY ONE SCRIPT -->
+  <script src="js/app.js"></script>
 
 </body>
 </html>
