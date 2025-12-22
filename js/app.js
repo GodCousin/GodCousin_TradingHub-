@@ -1,28 +1,44 @@
-// ===== CONFIG =====
-const APP_ID = "112117";
-const REDIRECT_URL = "https://god-cousin-trading-hub.vercel.app/dashboard.html";
+// ===============================
+// GOTH – Deriv OAuth Controller
+// ===============================
 
-// ===== LOGIN =====
+// Your Deriv App ID
+const APP_ID = 112117;
+
+// Your live domain (must match Deriv dashboard)
+const REDIRECT_URL = "https://god-cousin-trading-hub.vercel.app";
+
+// ===============================
+// 1️⃣ CONNECT TO DERIV
+// ===============================
 function connectToDeriv() {
-  const authUrl =
-    `https://oauth.deriv.com/oauth2/authorize` +
-    `?app_id=${APP_ID}` +
-    `&redirect_uri=${encodeURIComponent(REDIRECT_URL)}`;
+  const oauthUrl =
+    "https://oauth.deriv.com/oauth2/authorize" +
+    "?app_id=" + APP_ID +
+    "&redirect_uri=" + encodeURIComponent(REDIRECT_URL);
 
-  window.location.href = authUrl;
+  window.location.href = oauthUrl;
 }
 
-// ===== HANDLE RETURN FROM DERIV =====
-(function handleOAuthReturn() {
+// ===============================
+// 2️⃣ HANDLE REDIRECT FROM DERIV
+// ===============================
+(function handleDerivRedirect() {
   const params = new URLSearchParams(window.location.search);
 
-  // Deriv sends token as "token1"
-  const token = params.get("token1");
+  // Deriv may return token or access_token
+  const token =
+    params.get("token") ||
+    params.get("access_token");
 
   if (token) {
+    // Save token securely
     localStorage.setItem("deriv_token", token);
 
-    // Clean URL and move to dashboard
-    window.location.replace("/dashboard.html");
+    // Clean URL (remove token from address bar)
+    window.history.replaceState({}, document.title, "/");
+
+    // Go to dashboard
+    window.location.href = "dashboard.html";
   }
 })();
