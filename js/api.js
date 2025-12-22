@@ -1,21 +1,48 @@
-let ws;
+// ===============================
+// Deriv API WebSocket
+// ===============================
 
-function connect(token) {
-  ws = new WebSocket("wss://ws.derivws.com/websockets/v3?app_id=112117");
+const DERIV_WS_URL = "wss://ws.derivws.com/websockets/v3?app_id=112117";
 
-  ws.onopen = () => {
-    ws.send(JSON.stringify({ authorize: token }));
-  };
+let ws = null;
 
-  ws.onmessage = (msg) => {
-    const data = JSON.parse(msg.data);
+// Connect to Deriv
+function connectDeriv(token) {
+  return new Promise((resolve, reject) => {
+    ws = new WebSocket(DERIV_WS_URL);
 
-    // Show balance if available
-    if (data.msg_type === "balance") {
-      document.getElementById("balance").innerText =
-        `${data.balance.currency} ${data.balance.balance}`;
-    }
+    ws.onopen = () => {
+      ws.send(
+        JSON.stringify({
+          authorize: token
+        })
+      );
+    };
 
-    console.log("Deriv WS message:", data);
-  };
+    ws.onerror = (err) => {
+      reject("WebSocket error");
+    };
+
+    ws.onmessage = (msg) => {
+      const data = JSON.parse(msg.data);
+
+      if (data.error) {
+        reject(data.error.message);
+      }
+
+      if (data.msg_type === "authorize") {
+        resolve(data.authorize);
+      }
+    };
+  });
 }
+
+// Get balance
+function subscribeBalance() {
+  ws.send(
+    JSON.stringify({
+      balance: 1,
+      subscribe: 1
+    })
+  );
+    }
