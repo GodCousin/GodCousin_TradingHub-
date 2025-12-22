@@ -1,37 +1,36 @@
+// js/dashboard.js
+const APP_ID = "112117";
+
+// Read token from URL
 const params = new URLSearchParams(window.location.search);
 const token = params.get("token");
 
-if (token) {
-  connect(token);
-} else {
-  console.log("No token found, redirecting to login...");
-  // Optionally redirect to login page:
-  // window.location.href = "index.html";
+// If no token, go back to login
+if (!token) {
+  window.location.href = "/";
 }
 
-// Example bot logic
-function startBot() {
-  document.getElementById("status").innerText = "Bot running";
+// Save token
+localStorage.setItem("deriv_token", token);
 
-  if (!ws) {
-    console.log("WebSocket not connected");
-    return;
+// Connect to Deriv WebSocket
+const ws = new WebSocket(
+  "wss://ws.derivws.com/websockets/v3?app_id=" + APP_ID
+);
+
+ws.onopen = () => {
+  ws.send(
+    JSON.stringify({
+      authorize: token
+    })
+  );
+};
+
+ws.onmessage = (msg) => {
+  const data = JSON.parse(msg.data);
+
+  if (data.msg_type === "authorize") {
+    document.getElementById("status").innerText =
+      "Connected as " + data.authorize.loginid;
   }
-
-  ws.send(JSON.stringify({
-    buy: 1,
-    price: 1,
-    parameters: {
-      amount: 1,
-      basis: "stake",
-      contract_type: "DIGITUNDER",
-      currency: "USD",
-      duration: 1,
-      duration_unit: "t",
-      symbol: "R_100",
-      barrier: 8
-    }
-  }));
-
-  console.log("Bot trade sent");
-}
+};
