@@ -1,36 +1,46 @@
-// js/dashboard.js
-const APP_ID = "112117";
+// ===============================
+// Dashboard Logic
+// ===============================
 
-// Read token from URL
-const params = new URLSearchParams(window.location.search);
-const token = params.get("token");
+const token = localStorage.getItem("deriv_token");
 
-// If no token, go back to login
 if (!token) {
-  window.location.href = "/";
+  window.location.href = "index.html";
 }
 
-// Save token
-localStorage.setItem("deriv_token", token);
+// UI elements
+const balanceEl = document.getElementById("balance");
+const currencyEl = document.getElementById("currency");
+const accountEl = document.getElementById("account");
+const nameEl = document.getElementById("name");
 
-// Connect to Deriv WebSocket
-const ws = new WebSocket(
-  "wss://ws.derivws.com/websockets/v3?app_id=" + APP_ID
-);
+// Connect + Load Info
+connectDeriv(token)
+  .then((user) => {
+    // Account info
+    accountEl.textContent = user.loginid;
+    currencyEl.textContent = user.currency;
+    nameEl.textContent = user.fullname || "Deriv Trader";
 
-ws.onopen = () => {
-  ws.send(
-    JSON.stringify({
-      authorize: token
-    })
-  );
-};
+    // Subscribe balance
+    subscribeBalance();
+  })
+  .catch((err) => {
+    alert("Authorization failed: " + err);
+    localStorage.removeItem("deriv_token");
+    window.location.href = "index.html";
+  });
 
-ws.onmessage = (msg) => {
-  const data = JSON.parse(msg.data);
+// Listen for balance updates
+(function listenBalance() {
+  if (!window.ws) return;
 
-  if (data.msg_type === "authorize") {
-    document.getElementById("status").innerText =
-      "Connected as " + data.authorize.loginid;
-  }
-};
+  ws.onmessage = (msg) => {
+    const data = JSON.parse(msg.data);
+
+    if (data.msg_type === "balance") {
+      balanceEl.textContent =
+        data.balance.balance.toFixed(2);
+    }
+  };
+})();
