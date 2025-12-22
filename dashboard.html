@@ -165,31 +165,33 @@
     const APP_ID = 112117;
     const token = localStorage.getItem("deriv_token");
 
+    // Redirect if no token
     if (!token) {
       window.location.href = "/";
     }
 
-    const ws = new WebSocket(`wss://ws.deriv.com/websockets/v3?app_id=${APP_ID}`);
+    // Connect to Deriv WebSocket
+    const ws = new WebSocket(`wss://ws.derivws.com/websockets/v3?app_id=${APP_ID}`);
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({
-        authorize: token
-      }));
+      ws.send(JSON.stringify({ authorize: token }));
     };
 
     ws.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
 
+      // Authorize successful → subscribe to balance
       if (data.msg_type === "authorize") {
         ws.send(JSON.stringify({ balance: 1, subscribe: 1 }));
       }
 
-      if (data.msg_type === "balance") {
+      // Update balance safely
+      if (data.msg_type === "balance" && data.balance) {
         document.getElementById("balance").textContent =
-          data.balance.balance.toFixed(2);
+          parseFloat(data.balance.balance).toFixed(2);
       }
     };
   </script>
 
 </body>
-    </html>
+</html>
