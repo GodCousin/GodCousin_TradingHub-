@@ -74,6 +74,7 @@
       cursor: pointer;
       font-weight: bold;
       margin-top: 10px;
+      transition: 0.3s;
     }
 
     .logout-btn:hover {
@@ -96,11 +97,15 @@
       transition: 0.3s;
       text-align: center;
       box-shadow: 0 0 30px rgba(0,255,255,0.2);
+      color: #00ffff;
+      font-weight: bold;
+      font-family: 'Orbitron', sans-serif;
     }
 
     .bot-option:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 50px rgba(0,255,255,0.5);
+      box-shadow: 0 0 50px #00ffff;
+      background: rgba(0,255,255,0.1);
     }
 
     .run-bar {
@@ -113,6 +118,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 -4px 20px rgba(0,255,255,0.2);
+      color: #fff;
     }
 
     .run-btn {
@@ -124,6 +130,7 @@
       font-size: 1.1rem;
       cursor: pointer;
       font-weight: bold;
+      transition: 0.3s;
     }
 
     .run-btn:hover {
@@ -162,10 +169,10 @@
 
     <h2>Bot Options</h2>
     <div class="bot-options">
-      <div class="bot-option">Upload Bot</div>
-      <div class="bot-option">Trading Bots</div>
-      <div class="bot-option">Bot Editor</div>
-      <div class="bot-option">Quick Strategy</div>
+      <div class="bot-option" data-bot="upload">Upload Bot</div>
+      <div class="bot-option" data-bot="trading">Trading Bots</div>
+      <div class="bot-option" data-bot="editor">Bot Editor</div>
+      <div class="bot-option" data-bot="quick">Quick Strategy</div>
     </div>
 
     <div class="risk-disclaimer">⚠️ Trading involves risk</div>
@@ -173,11 +180,41 @@
 
   <div class="run-bar">
     <button class="run-btn">▶ Run</button>
-    <p>Bot is not running</p>
+    <p id="runStatus">Bot is not running</p>
   </div>
 
   <script src="js/api.js"></script>
   <script src="js/dashboard.js"></script>
+
+  <script>
+    // ===============================
+    // Bot Option Buttons
+    // ===============================
+    const botButtons = document.querySelectorAll(".bot-option");
+    const runStatus = document.getElementById("runStatus");
+
+    botButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const botType = btn.dataset.bot;
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+          alert("WebSocket not connected. Refresh page.");
+          return;
+        }
+
+        runStatus.textContent = `Running ${botType} bot...`;
+
+        // Send example WebSocket message (replace with real strategy)
+        ws.send(JSON.stringify({
+          bot_run: 1,
+          bot_type: botType
+        }));
+
+        setTimeout(() => {
+          runStatus.textContent = `${botType} bot ran successfully (example)`;
+        }, 1000);
+      });
+    });
+  </script>
 
 </body>
 </html>
