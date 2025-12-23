@@ -1,9 +1,8 @@
 // ===============================
-// Deriv API – GOTH Trading Hub
+// Deriv API WebSocket
 // ===============================
 
-const APP_ID = 112117;
-const DERIV_WS_URL = `wss://ws.derivws.com/websockets/v3?app_id=${APP_ID}`;
+const DERIV_WS_URL = "wss://ws.derivws.com/websockets/v3?app_id=112117";
 
 let ws = null;
 
@@ -23,7 +22,7 @@ function connectDeriv(token) {
     };
 
     ws.onerror = () => {
-      reject("WebSocket connection failed");
+      reject("WebSocket error");
     };
 
     ws.onmessage = (msg) => {
@@ -31,9 +30,12 @@ function connectDeriv(token) {
 
       if (data.error) {
         reject(data.error.message);
+        return;
       }
 
       if (data.msg_type === "authorize") {
+        // ✅ expose ws ONLY after successful auth
+        window.ws = ws;
         resolve(data.authorize);
       }
     };
@@ -41,12 +43,15 @@ function connectDeriv(token) {
 }
 
 // ===============================
-// Subscribe to Balance
+// Balance Subscription
 // ===============================
 function subscribeBalance() {
-  if (!ws || ws.readyState !== WebSocket.OPEN) return;
+  if (!window.ws || window.ws.readyState !== 1) {
+    console.error("WebSocket not connected");
+    return;
+  }
 
-  ws.send(
+  window.ws.send(
     JSON.stringify({
       balance: 1,
       subscribe: 1
@@ -55,31 +60,7 @@ function subscribeBalance() {
 }
 
 // ===============================
-// Run Example Bot / Trade
+// Expose functions
 // ===============================
-function runExampleBot() {
-  if (!ws || ws.readyState !== WebSocket.OPEN) return;
-
-  ws.send(
-    JSON.stringify({
-      buy: 1,
-      price: 1,
-      parameters: {
-        symbol: "R_100",
-        amount: 1,
-        basis: "stake",
-        contract_type: "CALL",
-        duration: 1,
-        duration_unit: "t"
-      }
-    })
-  );
-}
-
-// ===============================
-// Expose globally
-// ===============================
-window.ws = ws;
 window.connectDeriv = connectDeriv;
 window.subscribeBalance = subscribeBalance;
-window.runExampleBot = runExampleBot;
