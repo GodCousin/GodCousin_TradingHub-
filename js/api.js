@@ -1,8 +1,9 @@
 // ===============================
-// Deriv API WebSocket
+// Deriv API – GOTH Trading Hub
 // ===============================
 
-const DERIV_WS_URL = "wss://ws.derivws.com/websockets/v3?app_id=112117";
+const APP_ID = 112117;
+const DERIV_WS_URL = `wss://ws.derivws.com/websockets/v3?app_id=${APP_ID}`;
 
 let ws = null;
 
@@ -22,7 +23,7 @@ function connectDeriv(token) {
     };
 
     ws.onerror = () => {
-      reject("WebSocket error");
+      reject("WebSocket connection failed");
     };
 
     ws.onmessage = (msg) => {
@@ -40,10 +41,10 @@ function connectDeriv(token) {
 }
 
 // ===============================
-// Balance Subscription
+// Subscribe to Balance
 // ===============================
 function subscribeBalance() {
-  if (!ws) return;
+  if (!ws || ws.readyState !== WebSocket.OPEN) return;
 
   ws.send(
     JSON.stringify({
@@ -54,8 +55,31 @@ function subscribeBalance() {
 }
 
 // ===============================
+// Run Example Bot / Trade
+// ===============================
+function runExampleBot() {
+  if (!ws || ws.readyState !== WebSocket.OPEN) return;
+
+  ws.send(
+    JSON.stringify({
+      buy: 1,
+      price: 1,
+      parameters: {
+        symbol: "R_100",
+        amount: 1,
+        basis: "stake",
+        contract_type: "CALL",
+        duration: 1,
+        duration_unit: "t"
+      }
+    })
+  );
+}
+
+// ===============================
 // Expose globally
 // ===============================
 window.ws = ws;
 window.connectDeriv = connectDeriv;
 window.subscribeBalance = subscribeBalance;
+window.runExampleBot = runExampleBot;
