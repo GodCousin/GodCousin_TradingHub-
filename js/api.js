@@ -6,7 +6,9 @@ const DERIV_WS_URL = "wss://ws.derivws.com/websockets/v3?app_id=112117";
 
 let ws = null;
 
-// Connect to Deriv
+// ===============================
+// Connect & Authorize
+// ===============================
 function connectDeriv(token) {
   return new Promise((resolve, reject) => {
     ws = new WebSocket(DERIV_WS_URL);
@@ -19,7 +21,7 @@ function connectDeriv(token) {
       );
     };
 
-    ws.onerror = (err) => {
+    ws.onerror = () => {
       reject("WebSocket error");
     };
 
@@ -37,12 +39,23 @@ function connectDeriv(token) {
   });
 }
 
-// Get balance
+// ===============================
+// Balance Subscription
+// ===============================
 function subscribeBalance() {
+  if (!ws) return;
+
   ws.send(
     JSON.stringify({
       balance: 1,
       subscribe: 1
     })
   );
-    }
+}
+
+// ===============================
+// Expose globally
+// ===============================
+window.ws = ws;
+window.connectDeriv = connectDeriv;
+window.subscribeBalance = subscribeBalance;
