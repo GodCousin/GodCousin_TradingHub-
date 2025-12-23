@@ -1,221 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GOTH | Trading Dashboard</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>GOTH | Dashboard</title>
 
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at center, #0a001f 0%, #000000 70%);
-      color: #e0f8ff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
     }
 
-    .top-bar {
-      width: 100%;
-      background: #1e293b;
-      padding: 15px 20px;
+    .top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-weight: bold;
-      color: #00ffff;
-      box-shadow: 0 4px 20px rgba(0,255,255,0.2);
+      padding: 15px 20px;
+      background: #020617;
     }
 
     .balance {
-      background: #3b82f6;
-      padding: 8px 20px;
-      border-radius: 20px;
+      background: #22c55e;
+      padding: 8px 15px;
+      border-radius: 6px;
+      color: black;
       font-weight: bold;
     }
 
-    .main-content {
-      width: 100%;
-      max-width: 1000px;
-      padding: 40px 20px;
+    .main {
+      padding: 40px;
       text-align: center;
-    }
-
-    .account-card {
-      background: rgba(0,0,0,0.6);
-      padding: 25px;
-      margin-bottom: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 50px rgba(0,255,255,0.2);
-      text-align: left;
-    }
-
-    .account-card h3 {
-      color: #00ffff;
-      margin-bottom: 15px;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .account-card p {
-      font-size: 1.1rem;
-      margin: 6px 0;
-    }
-
-    .logout-btn {
-      background: #ff4d4d;
-      color: #fff;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-
-    .logout-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px red;
-    }
-
-    .bot-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .bot-option {
-      background: rgba(0,0,0,0.5);
-      padding: 20px;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      text-align: center;
-      box-shadow: 0 0 30px rgba(0,255,255,0.2);
-      color: #00ffff;
-      font-weight: bold;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .bot-option:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 50px #00ffff;
-      background: rgba(0,255,255,0.1);
     }
 
     .run-bar {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background: rgba(0,0,0,0.8);
-      padding: 15px 30px;
+      background: #020617;
+      padding: 15px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 -4px 20px rgba(0,255,255,0.2);
-      color: #fff;
     }
 
-    .run-btn {
+    button {
+      padding: 10px 25px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+    }
+
+    #runBotBtn {
       background: #10b981;
       color: white;
-      padding: 12px 40px;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
     }
 
-    .run-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px #10b981;
+    #logoutBtn {
+      background: #ef4444;
+      color: white;
     }
-
-    .risk-disclaimer {
-      background: #fef3c7;
-      color: #92400e;
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 30px;
-      font-weight: bold;
-    }
-
   </style>
 </head>
 
 <body>
 
-  <div class="top-bar">
-    <div>GOTH</div>
-    <div class="balance">USD <span id="balance">--</span></div>
+  <!-- Top Bar -->
+  <div class="top">
+    <div>
+      <div id="name">---</div>
+      <div id="account">---</div>
+      <div id="currency">---</div>
+    </div>
+    <div class="balance">
+      USD <span id="balance">--</span>
+    </div>
   </div>
 
-  <div class="main-content">
-
-    <div class="account-card">
-      <h3>Account Info</h3>
-      <p><strong>Name:</strong> <span id="name">---</span></p>
-      <p><strong>Account ID:</strong> <span id="account">---</span></p>
-      <p><strong>Currency:</strong> <span id="currency">---</span></p>
-      <button id="logoutBtn" class="logout-btn">Logout</button>
-    </div>
-
-    <h2>Bot Options</h2>
-    <div class="bot-options">
-      <div class="bot-option" data-bot="upload">Upload Bot</div>
-      <div class="bot-option" data-bot="trading">Trading Bots</div>
-      <div class="bot-option" data-bot="editor">Bot Editor</div>
-      <div class="bot-option" data-bot="quick">Quick Strategy</div>
-    </div>
-
-    <div class="risk-disclaimer">⚠️ Trading involves risk</div>
+  <!-- Main Content -->
+  <div class="main">
+    <h1>GOTH Trading Dashboard</h1>
+    <p>Connected to Deriv API</p>
   </div>
 
-<div class="run-bar">
-  <button id="logoutBtn">Logout</button>
-  <button id="runBotBtn">▶ Run Under 8 Bot</button>
-  <p id="status">Idle</p>
-</div>
+  <!-- Run Bar -->
+  <div class="run-bar">
+    <button id="logoutBtn">Logout</button>
+    <button id="runBotBtn">▶ Run Under 8 Bot</button>
+    <p id="status">Idle</p>
+  </div>
 
-  <script src="js/api.js"></script>
-  <script src="js/dashboard.js"></script>
-
-  <script>
-    // ===============================
-    // Bot Option Buttons
-    // ===============================
-    const botButtons = document.querySelectorAll(".bot-option");
-    const runStatus = document.getElementById("runStatus");
-
-    botButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const botType = btn.dataset.bot;
-        if (!ws || ws.readyState !== WebSocket.OPEN) {
-          alert("WebSocket not connected. Refresh page.");
-          return;
-        }
-
-        runStatus.textContent = `Running ${botType} bot...`;
-
-        // Send example WebSocket message (replace with real strategy)
-        ws.send(JSON.stringify({
-          bot_run: 1,
-          bot_type: botType
-        }));
-
-        setTimeout(() => {
-          runStatus.textContent = `${botType} bot ran successfully (example)`;
-        }, 1000);
-      });
-    });
-  </script>
+  <!-- Dashboard JS -->
+  <script type="module" src="js/dashboard.js"></script>
 
 </body>
 </html>
